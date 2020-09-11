@@ -88,7 +88,7 @@ def repl_punkt(x):
 def mvh(df):
     hashtags = df['tweet'].str.extractall(r"(#\S+)")
     hashtags = hashtags.reset_index()
-    hashtags = hashtags.set_index('level_0')
+    hashtags = hashtags.set_index('date_time')
     hashtags['count'] = 1
     hashtags = hashtags.rename(columns={0: "hashtag"})
     hashtags['hashtag'] = hashtags['hashtag'].apply(lambda x: repl_punkt(x.lower())) #re.sub('[^a-zA-Z0-9 \n\.]', '', my_str)
