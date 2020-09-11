@@ -58,6 +58,7 @@ def load_folder(path,plot=False):
 
     dfs = [pd.read_csv(fn) for fn in file_names]
     df = pd.concat(dfs)
+    df = df.drop_duplicates('id')
 
     print('tweets:',len(df))
     df=df.sort_values('likes_count',ascending=False) #retweets_count, replies_count
