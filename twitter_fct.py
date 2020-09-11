@@ -72,6 +72,7 @@ def load_folder(path,plot=False):
         print('tweets per day:', round(len(df) / (d_max - d_min).days+1,2),'from',d_min,'to',d_max)
 
     df['lang'] = df['tweet'].map(lambda t: detect_lang(t))
+    df = df.set_index('date_time')
     print(df['lang'].value_counts()[:3])
     if plot:
         df.groupby('date')['id'].count().plot(figsize=(15,3))
