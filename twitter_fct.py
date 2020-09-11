@@ -33,7 +33,7 @@ def detect_lang(text):
 def load(csv):
     df = pd.read_csv(csv)
     print('tweets:',len(df))
-    df=df.sort_values('likes_count',ascending=False) #retweets_count, replies_count
+    df=df.sort_values('retweets_count',ascending=False) #retweets_count, replies_count
 
     df['date_time'] = pd.to_datetime(df['date'])
     d_max =  df['date_time'].max()
@@ -58,7 +58,7 @@ def load_folder(path):
     df = df.drop_duplicates('id')
 
     print('tweets:',len(df))
-    df=df.sort_values('likes_count',ascending=False) #retweets_count, replies_count
+    df=df.sort_values('retweets_count',ascending=False) #retweets_count, replies_count
 
     df['date_time'] = pd.to_datetime(df['date'])
     d_max =  df['date_time'].max()
