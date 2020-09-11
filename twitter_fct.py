@@ -49,6 +49,33 @@ def load(csv,plot=False):
         plt.xticks(rotation=45)
     return df
 
+def load_folder(path,plot=False):
+    file_names = []
+    for file in os.listdir(path):
+        if file.endswith(".csv"):
+            file_names.append(path+file)
+
+    dfs = [pd.read_csv(fn) for fn in file_names]
+    df = pd.concat(dfs)
+
+    print('tweets:',len(df))
+    df=df.sort_values('likes_count',ascending=False) #retweets_count, replies_count
+
+    df['date_time'] = pd.to_datetime(df['date'])
+    d_max =  df['date_time'].max()
+    d_min =  df['date_time'].min()
+    if d_max == d_min:
+        print('all tweets from',d_min)
+    else:
+        print('tweets per day:', round(len(df) / (d_max - d_min).days+1,2),'from',d_min,'to',d_max)
+
+    df['lang'] = df['tweet'].map(lambda t: detect_lang(t))
+    print(df['lang'].value_counts()[:3])
+    if plot:
+        df.groupby('date')['id'].count().plot(figsize=(15,3))
+        plt.xticks(rotation=45)
+    return df
+
 punktuation = ['.',',','!','/',':',';']
 def repl_punkt(x):
     for punkt in punktuation:
