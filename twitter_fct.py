@@ -1,8 +1,8 @@
-!pip install twint
+pip install twint
 #this prevents async problems/ runtime errors
 #https://markhneedham.com/blog/2019/05/10/jupyter-runtimeerror-this-event-loop-is-already-running/
-!pip install nest_asyncio
-!pip install -qq whatthelang
+pip install nest_asyncio
+pip install -qq whatthelang
 
 
 
