@@ -42,7 +42,7 @@ def load(csv,plot=False):
         print('all tweets from',d_min)
     else:
         print('tweets per day:', round(len(df) / (d_max - d_min).days+1,2),'from',d_min,'to',d_max)
-
+    df = df.set_index('date_time')
     df['lang'] = df['tweet'].map(lambda t: detect_lang(t))
     print(df['lang'].value_counts()[:3])
     if plot:
