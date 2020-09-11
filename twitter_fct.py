@@ -95,3 +95,59 @@ def mvh(df):
     
 def ht2var(df,text):
     return df['tweet'].str.contains(text)*1
+
+from datetime import timedelta
+from string import ascii_letters, digits
+from os import mkdir, path
+
+def clean_name(dirname):
+    valid = set(ascii_letters + digits)
+    return ''.join(a for a in dirname if a in valid)
+
+def twint_search(searchterm, since, until, json_name):
+    '''
+    Twint search for a specific date range.
+    Stores results to json.
+    '''
+    c = twint.Config()
+    c.Search = searchterm
+    c.Since = since
+    c.Until = until
+    c.Min_repost = 10
+    c.Hide_output = True
+    #c.Store_json = True
+    c.Store_csv = True
+    c.Output = json_name
+    c.Debug = True
+
+    try:
+        twint.run.Search(c)    
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except:
+        print("Problem with %s." % since)
+
+
+def twint_loop(searchterm, since, until):
+
+    dirname = path_drive+clean_name(searchterm)
+    try:
+    # Create target Directory
+        mkdir(dirname)
+        print("Directory" , dirname ,  "Created ")
+    except FileExistsError:
+        print("Directory" , dirname ,  "already exists")
+
+    daterange = pd.date_range(since, until, freq='MS')
+    print(daterange)
+
+    for start_date in daterange:
+
+        since= start_date.strftime("%Y-%m-%d")
+        until = (start_date + timedelta(days=30)).strftime("%Y-%m-%d")
+
+        json_name = '%s.csv' % since
+        json_name = path.join(dirname, json_name)
+
+        print('Getting %s ' % since )
+        twint_search(searchterm, since, until, json_name)
