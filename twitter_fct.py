@@ -30,7 +30,7 @@ def detect_lang(text):
     except Exception:
         return 'exp'
 
-def load(csv,plot=False):
+def load(csv):
     df = pd.read_csv(csv)
     print('tweets:',len(df))
     df=df.sort_values('likes_count',ascending=False) #retweets_count, replies_count
@@ -42,15 +42,12 @@ def load(csv,plot=False):
         print('all tweets from',d_min)
     else:
         print('tweets per day:', round(len(df) / (d_max - d_min).days+1,2),'from',d_min,'to',d_max)
-    df = df.set_index('date_time')
+    df = df.set_index('id')
     df['lang'] = df['tweet'].map(lambda t: detect_lang(t))
     print(df['lang'].value_counts()[:3])
-    if plot:
-        df.groupby('date')['id'].count().plot(figsize=(15,3))
-        plt.xticks(rotation=45)
     return df
 
-def load_folder(path,plot=False):
+def load_folder(path):
     file_names = []
     for file in os.listdir(path):
         if file.endswith(".csv"):
@@ -72,11 +69,8 @@ def load_folder(path,plot=False):
         print('tweets per day:', round(len(df) / (d_max - d_min).days+1,2),'from',d_min,'to',d_max)
 
     df['lang'] = df['tweet'].map(lambda t: detect_lang(t))
-    df = df.set_index('date_time')
+    df = df.set_index('id')
     print(df['lang'].value_counts()[:3])
-    if plot:
-        df.groupby('date')['id'].count().plot(figsize=(15,3))
-        plt.xticks(rotation=45)
     return df
 
 punktuation = ['.',',','!','/',':',';']
@@ -88,7 +82,7 @@ def repl_punkt(x):
 def mvh(df):
     hashtags = df['tweet'].str.extractall(r"(#\S+)")
     hashtags = hashtags.reset_index()
-    hashtags = hashtags.set_index('date_time')
+    hashtags = hashtags.set_index('id')
     hashtags['count'] = 1
     hashtags = hashtags.rename(columns={0: "hashtag"})
     hashtags['hashtag'] = hashtags['hashtag'].apply(lambda x: repl_punkt(x.lower())) #re.sub('[^a-zA-Z0-9 \n\.]', '', my_str)
