@@ -104,7 +104,7 @@ def clean_name(dirname):
     valid = set(ascii_letters + digits)
     return ''.join(a for a in dirname if a in valid)
 
-def twint_search(searchterm, since, until, json_name):
+def twint_search(searchterm, since, until, json_name,min_repost=5):
     '''
     Twint search for a specific date range.
     Stores results to json.
@@ -113,7 +113,7 @@ def twint_search(searchterm, since, until, json_name):
     c.Search = searchterm
     c.Since = since
     c.Until = until
-    c.Min_repost = 10
+    c.Min_repost = min_repost
     c.Hide_output = True
     #c.Store_json = True
     c.Store_csv = True
@@ -128,7 +128,7 @@ def twint_search(searchterm, since, until, json_name):
         print("Problem with %s." % since)
 
 
-def twint_loop(searchterm, since, until):
+def twint_loop(searchterm, since, until,min_repost):
 
     dirname = path_drive+clean_name(searchterm)
     try:
@@ -150,4 +150,4 @@ def twint_loop(searchterm, since, until):
         json_name = path.join(dirname, json_name)
 
         print('Getting %s ' % since )
-        twint_search(searchterm, since, until, json_name)
+        twint_search(searchterm, since, until, json_name,min_repost)
