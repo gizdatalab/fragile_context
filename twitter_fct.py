@@ -12,6 +12,11 @@ nest_asyncio.apply()
 from IPython.display import HTML
 import requests
 
+from googletransx import Translator
+# ref.  - https://github.com/x0rzkov/py-googletrans#basic-usage
+
+translator = Translator()
+
 def show_tweet(link):
     '''Display the contents of a tweet. '''
     url = 'https://publish.twitter.com/oembed?url=%s' % link
