@@ -79,7 +79,7 @@ def repl_punkt(x):
         x = x.replace(punkt,'')
     return x
 
-def mvh(df):
+def mvh(df,top=5):
     hashtags = df['tweet'].str.extractall(r"(#\S+)")
     hashtags = hashtags.reset_index()
     hashtags = hashtags.set_index('id')
@@ -89,7 +89,9 @@ def mvh(df):
     hashtags = hashtags.merge(df[['replies_count',	'retweets_count',	'likes_count']],how='left', left_index=True, right_index=True)
     hashtags['score'] = 5 * hashtags['retweets_count'] + 3* hashtags['replies_count']  + 1* hashtags['likes_count']
     hashtags_g = hashtags.groupby('hashtag')['score','count','retweets_count','replies_count','likes_count'].sum()
-    hashtags_g = hashtags_g.sort_values('score',ascending=False) 
+    hashtags_g = hashtags_g.sort_values('score',ascending=False)[:top]
+    hashtags_g = hashtags_g.reset_index()
+    hashtags_g['translation'] = hashtags_g['hashtag'].apply(lambda x: translator.translate(x.replace('#',''), dest='en').text)
     #print(hashtags_g[:5])
     return hashtags_g
     
