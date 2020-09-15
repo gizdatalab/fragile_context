@@ -135,16 +135,15 @@ def twint_search(searchterm, since, until, json_name,min_repost=5):
         print("Problem with %s." % since)
 
 
-def twint_loop(searchterm, since, until,min_repost):
+def twint_loop(searchterm, since, until,dirname,min_repost):
 
-    dirname = path_drive+clean_name(searchterm)
     try:
     # Create target Directory
         mkdir(dirname)
         print("Directory" , dirname ,  "Created ")
     except FileExistsError:
         print("Directory" , dirname ,  "already exists")
-
+    #https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#timeseries-offset-aliases
     daterange = pd.date_range(since, until, freq='MS')
     print(daterange)
 
