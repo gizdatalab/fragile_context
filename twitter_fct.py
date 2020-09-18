@@ -99,6 +99,17 @@ def mvh(df,top=5):
     hashtags_g['translation'] = hashtags_g['hashtag'].apply(lambda x: translator.translate(x.replace('#',''), dest='en').text)
     #print(hashtags_g[:5])
     return hashtags_g
+
+def mvu(df,top=5):
+    hashtags = df#['username'] #.str.extractall(r"(#\S+)")
+    hashtags = hashtags.reset_index()
+    hashtags = hashtags.set_index('id')
+    hashtags['count'] = 1
+    hashtags['score'] = 5 * hashtags['retweets_count'] + 3* hashtags['replies_count']  + 1* hashtags['likes_count']
+    hashtags_g = hashtags.groupby('username')['score','count','retweets_count','replies_count','likes_count'].sum()
+    hashtags_g = hashtags_g.sort_values('score',ascending=False)[:top]
+    hashtags_g = hashtags_g.reset_index()
+    return hashtags_g
     
 def ht2var(df,text):
     return df['tweet'].str.contains(text)*1
