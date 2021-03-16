@@ -1,3 +1,5 @@
+![](https://www.blog-datalab.com/assets/Uploads/2859__ScaleHeightWzM1MF0.jpg | width=200)
+
 # fragile_context  
 Blog: https://www.blog-datalab.com/home/data-in-fragile-contexts-enhancing-context-monitoring-in-anbar/
   
