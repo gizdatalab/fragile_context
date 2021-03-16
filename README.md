@@ -1,4 +1,4 @@
-![](https://www.blog-datalab.com/assets/Uploads/2859__ScaleHeightWzM1MF0.jpg | width=200)
+![Anbar](https://www.blog-datalab.com/assets/Uploads/2859__ScaleHeightWzM1MF0.jpg)
 
 # fragile_context  
 Blog: https://www.blog-datalab.com/home/data-in-fragile-contexts-enhancing-context-monitoring-in-anbar/
