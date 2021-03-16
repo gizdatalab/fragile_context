@@ -1,8 +1,9 @@
-![Anbar](https://www.blog-datalab.com/assets/Uploads/2859__ScaleHeightWzM1MF0.jpg)
 
 # fragile_context  
 Blog: https://www.blog-datalab.com/home/data-in-fragile-contexts-enhancing-context-monitoring-in-anbar/
   
+![Anbar](https://www.blog-datalab.com/assets/Uploads/2859__ScaleHeightWzM1MF0.jpg) 
+
 65 % of GIZ partner countries are classified as fragile and the number of respective projects is increasing. Fragile countries often lack security, basic infrastructure and economic opportunities due to destruction. Transitional aid in international cooperation aims to reestablish conditions for a peaceful economic and social reconstruction process.
 
 COVID-19 has exacerbated existing and sometimes deeply rooted political, economic, social and security challenges, especially in fragile contexts.
